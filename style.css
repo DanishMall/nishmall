@@ -1,0 +1,408 @@
+:root {
+    --primary-color: #3498db;
+    --secondary-color: #2ecc71;
+    --accent-color: #8e44ad;
+    --text-dark: #2c3e50;
+    --text-light: #7f8c8d;
+    --bg-light: #f4f6f7;
+    --bg-white: #ffffff;
+    --shadow-subtle: 0 4px 6px rgba(0,0,0,0.1);
+    --shadow-medium: 0 10px 30px rgba(0,0,0,0.1);
+    --shadow-hover: 0 15px 40px rgba(0,0,0,0.15);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(135deg, var(--bg-light) 0%, #e9ecef 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    perspective: 1000px;
+}
+
+.wrapper {
+    max-width: 1200px;
+    width: 95%;
+    margin: 2rem auto;
+    background-color: var(--bg-white);
+    border-radius: 24px;
+    box-shadow: var(--shadow-medium);
+    overflow: hidden;
+    transform: translateZ(0);
+    transition: transform 0.5s ease;
+}
+
+/* .wrapper:hover {
+    transform: scale(1.02) rotateX(2deg) rotateY(-1deg);
+} */
+
+/* Profile Section */
+.profile {
+    display: flex;
+    align-items: center;
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    color: white;
+    padding: 3rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.profile::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(
+        circle at center, 
+        rgba(255,255,255,0.1) 0%, 
+        transparent 70%
+    );
+    animation: pulse 5s infinite alternate;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(0.9);
+        opacity: 0.7;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.profile-image {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 6px solid rgba(255,255,255,0.2);
+    margin-right: 2rem;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    transition: all 0.4s ease;
+}
+
+.profile-image:hover {
+    transform: scale(1.05) rotate(5deg);
+}
+
+.profile-content {
+    flex: 1;
+    z-index: 10;
+}
+
+.profile-content h1 {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 1.5rem 0;
+}
+
+.skill-tag {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.skill-tag:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-3px);
+}
+
+.social-media {
+    position: relative;
+    background-color: var(--bg-light);
+    padding: 2rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+}
+
+.social-video-background {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    transform: translateX(-50%) translateY(-50%);
+    z-index: 1;
+    
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    position: relative;
+    z-index: 10;
+}
+
+.social-card {
+    background: rgba(255, 255, 255, 0.7); /* Slightly transparent cards */
+    box-shadow: 
+        0 10px 30px rgba(0,0,0,0.1), 
+        inset 0 0 15px rgba(255,255,255,0.5); /* Inner glow effect */
+    border-radius: 12px;
+    padding: 1.5rem;
+    width: 250px;
+    text-align: center;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px); /* Frosted glass effect */
+    border: 1px solid rgba(255,255,255,0.3);
+}
+
+.social-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 
+        0 15px 40px rgba(0,0,0,0.15), 
+        inset 0 0 20px rgba(255,255,255,0.7);
+}
+
+.social-card .social-link {
+    color: var(--text-dark);
+    font-size: 2.5rem;
+    text-decoration: none;
+    margin-bottom: 1rem;
+    display: inline-block;
+    transition: color 0.3s;
+    opacity: 0.8;
+}
+
+.social-card.facebook:hover .social-link { color: #3b5998; opacity: 1; }
+.social-card.twitter:hover .social-link { color: #1da1f2; opacity: 1; }
+.social-card.instagram:hover .social-link { color: #c13584; opacity: 1; }
+.social-card.linkedin:hover .social-link { color: #000000; opacity: 1; }
+.social-card.github:hover .social-link { color: #333; opacity: 1; }
+
+.social-card h3 {
+    font-size: 1.25rem;
+    margin: 0.25rem 0;
+    color: var(--text-dark);
+}
+
+.social-card p {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    line-height: 1.4;
+}
+
+.image-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    justify-content: center;
+    padding: 2rem;
+    background-color: var(--bg-light);
+}
+
+.image-card {
+    background: var(--bg-white);
+    box-shadow: var(--shadow-medium);
+    border-radius: 12px;
+    overflow: hidden;
+    width: 300px;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.image-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-hover);
+}
+
+.card-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.card-content {
+    padding: 1rem;
+    text-align: center;
+}
+
+.card-content h3 {
+    font-size: 1.25rem;
+    color: var(--text-dark);
+    margin-bottom: 0.5rem;
+}
+
+.card-content p {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    line-height: 1.4;
+}
+.footer {
+    background-color: var(--text-dark);
+    color: var(--bg-light);
+    text-align: center;
+    padding: 1rem 0;
+    font-size: 0.9rem;
+    font-family: 'Roboto', sans-serif;
+    margin-top: 2rem;
+    box-shadow: var(--shadow-subtle);
+}
+
+.footer p {
+    margin: 0;
+}
+
+/* General Responsive Improvements */
+@media (max-width: 768px) {
+    /* Profile Section */
+    .profile {
+        flex-direction: column;
+        text-align: center;
+        padding: 1.5rem;
+    }
+
+    .profile-image {
+        width: 180px;
+        height: 180px;
+        margin-right: 0;
+        margin-bottom: 1rem;
+    }
+
+    .profile-content h1 {
+        font-size: 2rem;
+    }
+
+    .profile-content p {
+        font-size: 1rem;
+    }
+
+    .skills {
+        gap: 8px;
+        margin: 1rem 0;
+    }
+
+    .skill-tag {
+        padding: 6px 10px;
+        font-size: 0.75rem; /* Reduce font size for mobile */
+    }
+
+    /* Social Media Section */
+    .social-links {
+        gap: 1rem;
+    }
+
+    .social-card {
+        width: 200px;
+        padding: 1rem;
+    }
+
+    .social-card h3 {
+        font-size: 1rem;
+    }
+
+    .social-card p {
+        font-size: 0.8rem;
+    }
+
+    /* Image Cards Section */
+    .image-cards {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem;
+    }
+
+    .image-card {
+        width: 90%;
+        margin: 0 auto;
+    }
+
+    .card-content h3 {
+        font-size: 1rem;
+    }
+
+    .card-content p {
+        font-size: 0.8rem;
+    }
+}
+
+/* Extra Small Devices (e.g., phones under 480px) */
+@media (max-width: 480px) {
+    /* Profile Section */
+    .profile {
+        padding: 1rem;
+    }
+
+    .profile-image {
+        width: 150px;
+        height: 150px;
+    }
+
+    .profile-content h1 {
+        font-size: 1.5rem;
+    }
+
+    .profile-content p {
+        font-size: 0.9rem;
+    }
+
+    /* Social Media Section */
+    .social-card {
+        width: 180px;
+        padding: 0.8rem;
+    }
+
+    .social-card h3 {
+        font-size: 0.9rem;
+    }
+
+    .social-card p {
+        font-size: 0.75rem;
+    }
+
+    /* Image Cards Section */
+    .image-card {
+        width: 100%;
+    }
+
+    .card-content h3 {
+        font-size: 0.9rem;
+    }
+
+    .card-content p {
+        font-size: 0.75rem;
+    }
+    .skills {
+        gap: 8px;
+        margin: 0.5rem 0;
+    }
+    .skill-tag {
+        padding: 5px 8px;
+        font-size: 0.7rem; /* Even smaller font size for compact displays */
+    }
+}
