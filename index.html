@@ -131,6 +131,51 @@
             </div>
         </div>    
 
+        <section class="memory-carousel">
+            <h2 class="memory-carousel-title">Our Cherished Memories</h2>
+            
+            <div class="carousel-container">
+                <div class="auto-slide-progress"></div>
+
+                <button class="carousel-nav-button prev" aria-label="Previous Memory">&larr;</button>
+                <button class="carousel-nav-button next" aria-label="Next Memory">&rarr;</button>
+                
+                <div class="carousel-slides">
+                    <div class="carousel-slide active">
+                        <img src="./images/us5.png" alt="First Memory">
+                        <div class="slide-caption">
+                            Our first date, full of laughter and joy!
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="./images/us6.png" alt="Second Memory">
+                        <div class="slide-caption">
+                            Setiap gambar membawa cerita, dan gambar ini merakam saat-saat paling bahagia kita bersama.
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="./images/us7.png" alt="Third Memory">
+                        <div class="slide-caption">
+                            Perjalanan kita dipenuhi dengan cinta, kepercayaan, dan bertambah kuat setiap hari.
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="./images/riya2.png" alt="Fourt Memory">
+                        <div class="slide-caption">
+                            Saat istimewa ini adalah permulaan kepada perjalanan cinta yang kekal abadi.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="carousel-indicators">
+                    <div class="carousel-indicator active" aria-label="Memory 1"></div>
+                    <div class="carousel-indicator" aria-label="Memory 2"></div>
+                    <div class="carousel-indicator" aria-label="Memory 3"></div>
+                    <div class="carousel-indicator" aria-label="Memory 4"></div>
+                </div>
+            </div>
+        </section>
+        
         <!-- <section class="love-distance">
             <div class="distance-stats">
                 <div class="stat-card" id="days-together">
@@ -169,7 +214,7 @@
         
             <!-- Card 2: Our First Adventure -->
             <div class="image-card">
-                <img src="./images/us2.png" alt="Our First Adventure" class="card-image">
+                <img src="./images/riya1.png" alt="Our First Adventure" class="card-image">
                 <div class="card-content">
                     <h3>Our First Adventure</h3>
                     <p>From unplanned trips to spontaneous laughter, this image reminds us of the beauty in exploring life together.</p>
@@ -190,7 +235,7 @@
             <h2>My Projects - About Us</h2>
             <div class="projects-grid">
                 <div class="project-card">
-                    <img src="./images/Project1.png" alt="E-Commerce Platform" class="project-image">
+                    <img src="/images/Project1.png" alt="E-Commerce Platform" class="project-image">
                     <div class="project-content">
                         <h3 class="project-title">Anniversarry Countdown</h3>
                         <div class="project-tags">
@@ -213,7 +258,7 @@
                 </div>
 
                 <div class="project-card">                
-                    <img src="./images/Project2.png" alt="Machine Learning Dashboard" class="project-image">
+                    <img src="/images/Project2.png" alt="Machine Learning Dashboard" class="project-image">
                     <div class="project-content">
                         <h3 class="project-title">Love Journey</h3>
                         <div class="project-tags">
@@ -442,7 +487,7 @@
         );
     </script>
     <!-- TRIVIA GAME .JS -->
-     <script>
+    <script>
         const questions = [
             {
                 question: "Where did we first meet?",
@@ -528,8 +573,7 @@
 
                 // Initialize the game
                 loadQuestion();
-     </script>
-
+    </script>
      <!-- Weather Widget .JS -->
     <script>
         // Weather illustrations (SVG content)
@@ -640,6 +684,113 @@
 
         // Update weather every 15 minutes
         setInterval(updateAllWeather, 1 * 60 * 1000);
+    </script>
+    <!-- Carousel .JS -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const slides = document.querySelector('.carousel-slides');
+            const slideElements = document.querySelectorAll('.carousel-slide');
+            const prevBtn = document.querySelector('.carousel-nav-button.prev');
+            const nextBtn = document.querySelector('.carousel-nav-button.next');
+            const indicators = document.querySelectorAll('.carousel-indicator');
+            const progressBar = document.querySelector('.auto-slide-progress');
+            
+            let currentIndex = 0;
+            const totalSlides = slideElements.length;
+            const AUTO_SLIDE_DURATION = 5000; // 5 seconds per slide
+            let autoSlideTimer;
+            let progressBarTimer;
+
+            function updateCarousel() {
+                slides.style.transform = `translateX(-${currentIndex * 100}%)`;
+                
+                // Reset active states
+                slideElements.forEach(slide => slide.classList.remove('active'));
+                indicators.forEach(indicator => indicator.classList.remove('active'));
+                
+                // Set active states
+                slideElements[currentIndex].classList.add('active');
+                indicators[currentIndex].classList.add('active');
+            }
+
+            function startAutoSlide() {
+                // Reset any existing timers
+                clearInterval(autoSlideTimer);
+                clearInterval(progressBarTimer);
+
+                // Progress bar animation
+                progressBar.style.width = '0%';
+                progressBarTimer = setInterval(() => {
+                    const currentWidth = parseFloat(progressBar.style.width) || 0;
+                    progressBar.style.width = `${currentWidth + 1}%`;
+                }, AUTO_SLIDE_DURATION / 100);
+
+                // Auto slide
+                autoSlideTimer = setTimeout(() => {
+                    currentIndex = (currentIndex + 1) % totalSlides;
+                    updateCarousel();
+                    startAutoSlide();
+                }, AUTO_SLIDE_DURATION);
+            }
+
+            function stopAutoSlide() {
+                clearInterval(autoSlideTimer);
+                clearInterval(progressBarTimer);
+                progressBar.style.width = '0%';
+            }
+
+            nextBtn.addEventListener('click', () => {
+                stopAutoSlide();
+                currentIndex = (currentIndex + 1) % totalSlides;
+                updateCarousel();
+                startAutoSlide();
+            });
+
+            prevBtn.addEventListener('click', () => {
+                stopAutoSlide();
+                currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+                updateCarousel();
+                startAutoSlide();
+            });
+
+            indicators.forEach((indicator, index) => {
+                indicator.addEventListener('click', () => {
+                    stopAutoSlide();
+                    currentIndex = index;
+                    updateCarousel();
+                    startAutoSlide();
+                });
+            });
+
+            // Touch and swipe support
+            let touchStartX = 0;
+            let touchEndX = 0;
+
+            slides.addEventListener('touchstart', (e) => {
+                stopAutoSlide();
+                touchStartX = e.changedTouches[0].screenX;
+            });
+
+            slides.addEventListener('touchend', (e) => {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+                startAutoSlide();
+            });
+
+            function handleSwipe() {
+                if (touchEndX < touchStartX) {
+                    // Swiped left, go to next slide
+                    currentIndex = (currentIndex + 1) % totalSlides;
+                } else if (touchEndX > touchStartX) {
+                    // Swiped right, go to previous slide
+                    currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+                }
+                updateCarousel();
+            }
+
+            // Start auto-sliding when page loads
+            startAutoSlide();
+        });
     </script>
 </body>
 </html>
